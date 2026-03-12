@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Top Section: Greeting Display -->
+        <section class="greeting-section">
+            <div id="greeting-display" class="card greeting-card">
+                <div class="greeting-header">
+                    <button id="theme-toggle" class="theme-toggle" title="Toggle Dark Mode">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <button id="settings-btn" class="settings-btn" title="Settings">
+                        <span class="settings-icon">⚙️</span>
+                    </button>
+                </div>
+                <div class="time-display" id="time-display">10:45:22</div>
+                <div class="date-display" id="date-display">Tuesday, January 27, 2026</div>
+                <div class="greeting-message" id="greeting-message">Good Morning</div>
+            </div>
+        </section>
+        
+        <!-- Middle Row: Timer and Tasks -->
+        <div class="middle-row">
+            <section class="timer-section">
+                <div id="focus-timer" class="card timer-card">
+                    <h2 class="card-title">Focus Timer</h2>
+                    <div class="timer-display" id="timer-display">25:00</div>
+                    <div class="timer-controls">
+                        <button id="timer-start" class="btn btn-primary">Start</button>
+                        <button id="timer-stop" class="btn btn-secondary">Stop</button>
+                        <button id="timer-reset" class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="tasks-section">
+                <div id="task-manager" class="card tasks-card">
+                    <h2 class="card-title">Tasks</h2>
+                    <div class="task-input-container">
+                        <input type="text" id="task-input" placeholder="Add a new task..." maxlength="500">
+                        <button id="add-task" class="btn btn-primary">Add</button>
+                    </div>
+                    <ul id="task-list" class="task-list">
+                        <!-- Tasks will be loaded dynamically -->
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Bottom Section: Quick Links -->
+        <section class="links-section">
+            <div id="quick-links" class="card links-card">
+                <h2 class="card-title">Quick Links</h2>
+                <div class="link-input-container">
+                    <input type="text" id="link-name" placeholder="Link name" maxlength="50">
+                    <input type="url" id="link-url" placeholder="URL">
+                    <button id="add-link" class="btn btn-primary">Add Link</button>
+                </div>
+                <div id="links-list" class="links-list">
+                    <!-- Default links -->
+                    <div class="link-item" data-url="https://google.com">
+                        <span class="link-text">Google</span>
+                        <button class="link-delete">×</button>
+                    </div>
+                    <div class="link-item" data-url="https://gmail.com">
+                        <span class="link-text">Gmail</span>
+                        <button class="link-delete">×</button>
+                    </div>
+                    <div class="link-item" data-url="https://calendar.google.com">
+                        <span class="link-text">Calendar</span>
+                        <button class="link-delete">×</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Settings</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="setting-group">
+                    <label for="custom-name">Custom Name for Greeting:</label>
+                    <input type="text" id="custom-name" placeholder="Enter your name..." maxlength="50">
+                    <small>Leave empty to use default greeting</small>
+                </div>
+                <div class="setting-group">
+                    <label for="timer-duration">Timer Duration (minutes):</label>
+                    <input type="number" id="timer-duration" min="1" max="120" value="25">
+                    <small>Set focus session duration (1-120 minutes)</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-settings" class="btn btn-primary">Save Settings</button>
+                <button id="cancel-settings" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/time-service.js"></script>
+    <script src="js/timer-service.js"></script>
+    <script src="js/storage-service.js"></script>
+    <script src="js/greeting-display.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

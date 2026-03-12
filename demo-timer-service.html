@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timer Service Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .timer-display {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            color: #333;
+        }
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        button {
+            font-size: 16px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+        .status {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 18px;
+        }
+        .completion-message {
+            background: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            margin: 20px 0;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Timer Service Demo</h1>
+    
+    <div class="timer-display" id="timerDisplay">25:00</div>
+    
+    <div class="controls">
+        <button id="startBtn">Start</button>
+        <button id="stopBtn">Stop</button>
+        <button id="resetBtn">Reset</button>
+    </div>
+    
+    <div class="status" id="status">Timer ready</div>
+    
+    <div class="completion-message" id="completionMessage">
+        🎉 Timer completed! Great work!
+    </div>
+
+    <script src="js/timer-service.js"></script>
+    <script>
+        // Initialize Timer Service
+        const timerService = new TimerService();
+        
+        // Get DOM elements
+        const timerDisplay = document.getElementById('timerDisplay');
+        const status = document.getElementById('status');
+        const completionMessage = document.getElementById('completionMessage');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        
+        // Update display function
+        function updateDisplay(state) {
+            timerDisplay.textContent = state.formattedTime;
+            status.textContent = state.isRunning ? 'Timer running...' : 'Timer paused';
+            
+            // Update button states
+            startBtn.disabled = state.isRunning || state.remainingTime <= 0;
+            stopBtn.disabled = !state.isRunning;
+            resetBtn.disabled = false;
+        }
+        
+        // Handle completion
+        function handleCompletion() {
+            completionMessage.style.display = 'block';
+            status.textContent = 'Timer completed!';
+            
+            // Hide completion message after 5 seconds
+            setTimeout(() => {
+                completionMessage.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Register callbacks
+        timerService.onUpdate(updateDisplay);
+        timerService.onComplete(handleCompletion);
+        
+        // Button event listeners
+        startBtn.addEventListener('click', () => {
+            timerService.start();
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            timerService.stop();
+        });
+        
+        resetBtn.addEventListener('click', () => {
+            timerService.reset();
+            completionMessage.style.display = 'none';
+        });
+        
+        // Initial display update
+        updateDisplay(timerService.getState());
+        
+        // Test functions for quick testing
+        window.testTimer = {
+            setToOneSecond: () => {
+                timerService.reset();
+                timerService.remainingTime = 1000; // 1 second
+                updateDisplay(timerService.getState());
+            },
+            setToTenSeconds: () => {
+                timerService.reset();
+                timerService.remainingTime = 10000; // 10 seconds
+                updateDisplay(timerService.getState());
+            }
+        };
+        
+        console.log('Timer Service Demo loaded');
+        console.log('Use testTimer.setToOneSecond() or testTimer.setToTenSeconds() for quick testing');
+    </script>
+</body>
+</html>

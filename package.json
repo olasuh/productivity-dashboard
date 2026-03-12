@@ -1,0 +1,40 @@
+{
+  "name": "productivity-dashboard",
+  "version": "1.0.0",
+  "description": "A client-side productivity dashboard with vanilla HTML, CSS, and JavaScript",
+  "main": "index.html",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "dev": "live-server --port=3000 --open=/index.html"
+  },
+  "keywords": [
+    "productivity",
+    "dashboard",
+    "vanilla-js",
+    "local-storage",
+    "pomodoro"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "fast-check": "^3.15.0",
+    "live-server": "^1.2.2"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": ["<rootDir>/tests/setup.js"],
+    "testMatch": [
+      "<rootDir>/tests/**/*.test.js"
+    ],
+    "collectCoverageFrom": [
+      "js/**/*.js",
+      "!js/app.js"
+    ],
+    "coverageDirectory": "coverage",
+    "coverageReporters": ["text", "lcov", "html"]
+  }
+}
